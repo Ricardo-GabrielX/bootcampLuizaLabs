@@ -3,7 +3,7 @@ import datetime
 import textwrap
 
 class Conta:
-    def __init__(self, numero:int, cliente:Cliente):
+    def __init__(self, numero, cliente:Cliente):
         self._saldo = 0
         self._numero = numero
         self._agencia = "0001"
@@ -13,6 +13,10 @@ class Conta:
     @classmethod
     def nova_conta (cls, cliente, numero):
         return cls(numero, cliente)
+    
+    @property
+    def conta(self):
+        return self._numero
     
     @property
     def saldo(self):
@@ -75,9 +79,13 @@ class ContaCorrente(Conta):
 
 
 class Cliente:
-        def __init__(self, endereco:str):
+        def __init__(self, endereco):
             self._endereco = endereco
             self._contas = []
+
+        @property
+        def contas(self):
+            return self._contas
 
         # def __del__(self):
         #     print('Cliente deletado')
@@ -89,11 +97,12 @@ class Cliente:
             self._contas.append(conta)
 
 class PessoaFisica(Cliente):
-    def __init__(self, cpf:str, nome:str, data_nascimento, endereco:str):
+    def __init__(self, cpf, nome, data_nascimento, endereco):
         super().__init__(endereco)
         self._cpf = cpf
         self._nome = nome
         self._data_nascimento = data_nascimento
+       
         
 
 class Historico:
@@ -147,8 +156,6 @@ class Deposito(Transacao):
         if sucesso_transacao:
             conta._historico.adicionar_transacao(self)
             
-    
-
 
 
 def menu():
@@ -255,7 +262,7 @@ def criar_cliente(clientes):
     clientes.append(cliente)
     print('Cliente criado com sucesso!')
 
-def     criar_conta(numero_conta, clientes, contas):
+def criar_conta(numero_conta, clientes, contas):
     cpf = input('Digite o CPF do cliente: ')
     cliente = filtrar_cliente(cpf, clientes)
 
@@ -263,9 +270,10 @@ def     criar_conta(numero_conta, clientes, contas):
         print('Cliente não encontrado, por favor crie um cliente antes de criar uma conta.')
         return
     
-    conta = ContaCorrente.nova_conta(numero=numero_conta, cliente=cliente)
+    conta = ContaCorrente.nova_conta(cliente=cliente ,numero=numero_conta)
     contas.append(conta)
-    cliente.contas.append(conta)
+    cliente.adicionar_conta(conta)
+    # cliente.contas.append(conta)
     print('Conta criada com sucesso!')
 
 def listar_contas(contas):
@@ -280,7 +288,7 @@ def main():
     contas = []
     while True:
         opcao = menu()
-        
+            
         if opcao == 'd':
             depositar(clientes)
 
