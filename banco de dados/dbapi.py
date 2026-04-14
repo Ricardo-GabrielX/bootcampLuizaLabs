@@ -44,4 +44,22 @@ dados = [
     ('Pedro', 'pedro@example.com')
 ]   
 
-inserir_varios_registros(conexao, cursor, dados)
+## inserir_varios_registros(conexao, cursor, dados)
+
+
+def recuperar_cliente(cursor, conexao, id):
+    data = (id,)
+    cursor.execute('SELECT * FROM clientes WHERE id=?;', data)
+    return cursor.fetchone()
+    # fetchone() retorna apenas um registro, fetchall() retorna uma lista de registros
+
+def listar_clientes(cursor):
+    return cursor.execute('SELECT * FROM clientes;')
+     
+
+# cliente = recuperar_cliente(cursor, conexao, 2)
+# print(cliente)
+
+clientes = listar_clientes(cursor)
+for cliente in clientes:
+    print(cliente)
