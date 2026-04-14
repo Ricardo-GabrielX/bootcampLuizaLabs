@@ -34,5 +34,14 @@ def deletar_registro(conexao, cursor, id):
     cursor.execute('DELETE FROM clientes WHERE id=?;', data)
     conexao.commit()
 
+def inserir_varios_registros(conexao, cursor, dados):
+    cursor.executemany('INSERT INTO clientes (nome, email) VALUES (?, ?)', dados)
+    conexao.commit()
 
-deletar_registro(conexao, cursor, 1)
+dados = [
+    ('João', 'joao@example.com'),
+    ('Maria', 'maria@example.com'),
+    ('Pedro', 'pedro@example.com')
+]   
+
+inserir_varios_registros(conexao, cursor, dados)
