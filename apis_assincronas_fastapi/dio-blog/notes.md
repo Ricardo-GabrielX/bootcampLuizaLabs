@@ -5,3 +5,5 @@ print(fastapi.__version__)
 
 > uvicorn <nomeArquivo>:<name> --reload
 > Example: --> uvicorn main:app --reload
+- Outra opção
+> poetry run uvicorn main:app --reload
