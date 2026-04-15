@@ -33,6 +33,8 @@ async def update_post(id: int, post: PostUpdateIn):
 
 
 # DELETAR POST  
+# no status, o professor manteve 204 para não exibir mensagem
+# Vou manter com retorno por ora, mas se precisar retirar, é só retirar o return e colocar status_code=status.HTTP_204_NO_CONTENT
 @router.delete("/{id}", status_code=status.HTTP_200_OK)
 async def delete_post(id: int):
     await service.delete(id)
