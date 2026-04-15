@@ -7,5 +7,6 @@ from datetime import datetime
 
 class PostIn(BaseModel):
     title: str
-    date: datetime = datetime.now()
+    content: str
+    published_at: datetime | None = None
     published: bool = False
