@@ -1,16 +1,8 @@
 from contextlib import asynccontextmanager
 
-import databases
-import sqlalchemy as sa
 from fastapi import FastAPI
 from controllers import post
-
-DATABASE_URL = "sqlite:///./blog.sqlite"
-
-database = databases.Database(DATABASE_URL)
-metadata = sa.MetaData()
-engine = sa.create_engine(DATABASE_URL, connect_args= {"check_same_thread": False})
-
+from database import database, metadata, engine
 
 
 @asynccontextmanager
