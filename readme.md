@@ -20,9 +20,9 @@ Organizar e documentar minha evolução na construção de aplicações modernas
 
 ## 📂 Estrutura de Atividades
 * **api_conceitos_fundamentais/**: Conceitos básicos de APIs e tipos, Rest, RESTful, GraphQL.
-* **FundamentosDePython&Lógica/**: Orientações básicas de python, como python funciona e suas características e exercícios práticos para treinar.
+* **Fundamentos_python/**: Orientações básicas de python, como python funciona e suas características e exercícios práticos para treinar.
 * **apis_assincronas_fastapi/dio-blog**: Desenvolvimento de uma API de Blog utilizando FastAPI, explorando rotas, schemas e injeção de dependência.
-* **banco de dados**: Trabalhando conceitos de queries em banco de dados com python, como fazer conexões do python com SQLite, como tratar dados em retornos, maneiras de evitar injeção SQL(boas práticas com SQL) e como lidar com gerenciamento de trasações(roolback e commit).
+* **banco_de_dados**: Trabalhando conceitos de queries em banco de dados com python, como fazer conexões do python com SQLite, como tratar dados em retornos, maneiras de evitar injeção SQL(boas práticas com SQL) e como lidar com gerenciamento de trasações(roolback e commit).
 
 
 ---
