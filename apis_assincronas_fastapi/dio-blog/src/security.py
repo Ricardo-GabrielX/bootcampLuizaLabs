@@ -77,7 +77,3 @@ class JWTBearer(HTTPBearer):
         return current_user
 
 
-
-
-
-
