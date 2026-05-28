@@ -45,6 +45,36 @@ async def decode_jwt(token: str) -> JWTToken | None:
         return _token if _token.access_token.exp >= time.time() else None
     except Exception:
         return None
+    
+
+
+# Corrigir classe;
+class JWTBearer(HTTPBearer):
+    def __init__(self, auto_error: bool = True):
+        super(JWTBearer, self).__init__(auto_error=auto_error)
+
+    async def __call__(self, request: Request) -> JWTToken | None:
+        authorization = request.headers.get("Authorization")
+        scheme, _, credentials = authorization.partition(" ")
+        
+        if credentials:
+            if not scheme == "Bearer":
+                raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid authentication scheme.")
+            payload = await decode_jwt(credentials)
+            if not payload:
+                raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid token or expired token.")
+            return payload
+        else:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid authorization code.")
+    
+    def get_current_user(self, token: Annotated[JWTToken, Depends(JWTBearer())]) -> dict[str, int]:
+        print(token)
+        return {"user_id": token.access_token.sub}
+    
+    def login_required(self, token: Annotated[dict[str, int], Depends(get_current_user)]):
+        if not current_user:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Acess denied.")
+        return current_user
 
 
 
