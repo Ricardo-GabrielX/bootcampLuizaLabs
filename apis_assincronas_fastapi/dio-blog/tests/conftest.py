@@ -10,7 +10,7 @@ os.environ.setdefault("DATABASE_URL", f"sqlite:///test_blog.sqlite")
 
 @pytest_asyncio.fixture
 async def db(request):
-    from src.database import Database, engine, metadata
+    from src.database import database, engine, metadata
     from src.models.post import posts
 
     await database.connect()
