@@ -54,7 +54,7 @@ class JWTBearer(HTTPBearer):
         super(JWTBearer, self).__init__(auto_error=auto_error)
 
     async def __call__(self, request: Request) -> JWTToken | None:
-        authorization = request.headers.get("Authorization")
+        authorization = request.headers.get("Authorization", "")
         scheme, _, credentials = authorization.partition(" ")
         
         if credentials:
