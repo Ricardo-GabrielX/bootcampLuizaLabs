@@ -59,13 +59,13 @@ class JWTBearer(HTTPBearer):
         
         if credentials:
             if not scheme == "Bearer":
-                raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid authentication scheme.")
+                raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid authentication scheme.")
             payload = await decode_jwt(credentials)
             if not payload:
-                raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid token or expired token.")
+                raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token or expired token.")
             return payload
         else:
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid authorization code.")
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid authorization code.")
     
     def get_current_user(self, token: Annotated[JWTToken, Depends(JWTBearer())]) -> dict[str, int]:
         print(token)
